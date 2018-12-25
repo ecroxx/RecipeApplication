@@ -1,6 +1,7 @@
 package com.example.egemenorecipeapp.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,12 +17,14 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
+
+    @Lob
     private String directions;
 
 
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients=new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
@@ -37,7 +40,7 @@ public class Recipe {
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name="category_id")
     )
-    private Set<Category> categories;
+    private Set<Category> categories=new HashSet<>();
 
     public Long getId() {
         return id;
