@@ -1,7 +1,5 @@
 package com.example.egemenorecipeapp.controllers;
 
-import com.example.egemenorecipeapp.repositories.CategoryRepository;
-import com.example.egemenorecipeapp.repositories.UnitOfMeasureRepository;
 import com.example.egemenorecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,20 +13,20 @@ Created By Egemen Ozkan
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository unitOfMeasureRepository;
+    //private CategoryRepository categoryRepository;
+    //private UnitOfMeasureRepository unitOfMeasureRepository;
     private final RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository, RecipeService recipeService) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
     @RequestMapping({"","/","index","recipe"})
     public String getIndexPage(Model model){
+
         log.debug("Index Page is Loading");
         model.addAttribute("recipes",recipeService.getRecipes());
+
         /*
         Optional<Category> categoryOptional=categoryRepository.findByDescription("American");
         Optional<UnitOfMeasure> unitOfMeasureOptional=unitOfMeasureRepository.findByDescription("Teaspoon");
