@@ -38,7 +38,8 @@ public class IndexControllerTest {
 
     @Test
     public void getIndexPage() {
-        //given
+     //given
+
         Set<Recipe> recipeSet=new HashSet<>();
         Recipe recipe1=new Recipe();
         recipe1.setDescription("recipe1");
@@ -54,16 +55,19 @@ public class IndexControllerTest {
 
         System.out.println(recipeSet.size());
         when(recipeService.getRecipes()).thenReturn(recipeSet);
+     //   ArgumentCaptor<Set<Recipe>> argumentCaptor=ArgumentCaptor.forClass(Set.class)
 
      //when
-     String view= indexController.getIndexPage(model);
+
+        String view= indexController.getIndexPage(model);
 
      //then
-     assertEquals(3,recipeService.getRecipes().size());
-     assertEquals("index",view);
 
-     verify(recipeService,times(2)).getRecipes();
-     verify(model,times(1)).addAttribute(eq("recipes"),anySet()); //matcher anySet() reqired eq //put recipeService.getRecipes() to test same result
+        assertEquals(3,recipeService.getRecipes().size());
+        assertEquals("index",view);
+
+        verify(recipeService,times(2)).getRecipes();
+        verify(model,times(1)).addAttribute(eq("recipes"),anySet()); //matcher anySet() reqired eq //put recipeService.getRecipes() to test same result
 
     }
 }
