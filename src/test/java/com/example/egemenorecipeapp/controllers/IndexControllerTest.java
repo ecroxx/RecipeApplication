@@ -5,6 +5,7 @@ import com.example.egemenorecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
@@ -13,7 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -55,7 +55,7 @@ public class IndexControllerTest {
 
         System.out.println(recipeSet.size());
         when(recipeService.getRecipes()).thenReturn(recipeSet);
-     //   ArgumentCaptor<Set<Recipe>> argumentCaptor=ArgumentCaptor.forClass(Set.class)
+        ArgumentCaptor<Set<Recipe>> argumentCaptor=ArgumentCaptor.forClass(Set.class);
 
      //when
 
@@ -67,7 +67,9 @@ public class IndexControllerTest {
         assertEquals("index",view);
 
         verify(recipeService,times(2)).getRecipes();
-        verify(model,times(1)).addAttribute(eq("recipes"),anySet()); //matcher anySet() reqired eq //put recipeService.getRecipes() to test same result
+        verify(model,times(1)).addAttribute(eq("recipes"),argumentCaptor.capture()); //matcher anySet() reqired eq //put recipeService.getRecipes() to test same result
 
+        Set<Recipe> set= argumentCaptor.getValue();
+        assertEquals(3,set.size());
     }
 }
