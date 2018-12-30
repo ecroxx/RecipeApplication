@@ -5,9 +5,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+//@RunWith(SpringRunner.class)
 public class CategoryTest {
 
     Category category;
+
+
+
 
     @Before
     public void setUp(){
@@ -16,6 +20,7 @@ public class CategoryTest {
 
     @Test
     public void getId() {
+
         Long id= 4l;
         category.setId(id);
     assertEquals(id,category.getId());

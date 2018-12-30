@@ -22,6 +22,7 @@ public class UnitOfMeasureRepositoryIT {
 
     @Before
     public void setUp() throws Exception {
+
     }
 
     @Test
