@@ -145,6 +145,10 @@ import java.util.Optional;
             guacRecipe.getCategories().add(americanCategory);
             guacRecipe.getCategories().add(mexicanCategory);
 
+            guacRecipe.setUrl("http://www.simplerecipes.com//recipes/perfect_guacamole/");
+            guacRecipe.setServings(5);
+            guacRecipe.setSource("Simply Recipes");
+
             //add to return list
             recipes.add(guacRecipe);
 

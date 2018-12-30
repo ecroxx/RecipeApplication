@@ -36,6 +36,7 @@ public class Recipe {
     @Lob
     private Byte[] image;
 
+
     @OneToOne(cascade = CascadeType.ALL,mappedBy ="recipe")
     private Notes notes;
 
