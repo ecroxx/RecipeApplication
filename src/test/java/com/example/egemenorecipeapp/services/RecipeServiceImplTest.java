@@ -1,5 +1,7 @@
 package com.example.egemenorecipeapp.services;
 
+import com.example.egemenorecipeapp.converters.RecipeCommandToRecipe;
+import com.example.egemenorecipeapp.converters.RecipeToRecipeCommand;
 import com.example.egemenorecipeapp.model.Recipe;
 import com.example.egemenorecipeapp.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,14 +27,22 @@ public class RecipeServiceImplTest {
    @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        this.recipeService=new RecipeServiceImpl(recipeRepository);
+
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
+
     @Test
-    public void getRecipes() {
+    public void getRecipesTest() {
         //given
         Recipe recipe=new Recipe();
         Set<Recipe> recipes=new HashSet<>();
