@@ -27,7 +27,7 @@ public class Recipe {
 
 
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "recipe",orphanRemoval = true)
     private Set<Ingredient> ingredients=new HashSet<>();
 
     @Enumerated(EnumType.STRING)
@@ -37,7 +37,7 @@ public class Recipe {
     private Byte[] image;
 
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy ="recipe")
+    @OneToOne(cascade = CascadeType.ALL,mappedBy ="recipe",orphanRemoval = true)
     private Notes notes;
 
     @ManyToMany
