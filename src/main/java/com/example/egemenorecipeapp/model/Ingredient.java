@@ -1,12 +1,14 @@
 package com.example.egemenorecipeapp.model;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipe"}) // with uom it has unidirectional relationship.So we dont need to exclude
 @Entity
 public class Ingredient {
