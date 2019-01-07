@@ -111,7 +111,7 @@ public class IngredientControllerTest {
     }
 
     @Test
-    public void testNewIngredientForm() throws Exception {
+    public void NewIngredientFormTest() throws Exception {
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(1L);
@@ -129,6 +129,15 @@ public class IngredientControllerTest {
 
         verify(recipeService, times(1)).findCommandById(anyLong());
 
+    }
+
+    @Test
+    public void deleteIngredientTest() throws Exception {
+         mockMvc.perform(get("/recipe/1/ingredient/1/delete"))
+                 .andExpect(status().is3xxRedirection())
+
+                 .andExpect(view().name("redirect:/recipe/1/ingredients"));
+         verify(ingredientService,times(1)).deleteById(anyLong(),anyLong());
     }
 
 }

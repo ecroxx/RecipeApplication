@@ -5,5 +5,6 @@ import com.example.egemenorecipeapp.commands.IngredientCommand;
 public interface IngredientService {
     IngredientCommand findByRecipeIdAndIngredientId(Long RecipeId, Long IngredientId);
     IngredientCommand saveIngredientCommand(IngredientCommand command);
+    void deleteById(Long recipeId, Long idToDelete);
 
 }
