@@ -1,6 +1,7 @@
 package com.example.egemenorecipeapp.controllers;
 
 import com.example.egemenorecipeapp.commands.RecipeCommand;
+import com.example.egemenorecipeapp.exceptions.NotFoundException;
 import com.example.egemenorecipeapp.model.Recipe;
 import com.example.egemenorecipeapp.services.RecipeService;
 import org.junit.Before;
@@ -47,6 +48,14 @@ public class RecipeControllerTest {
                 .andExpect(view().name("recipe/show"))
                  .andExpect(model().attributeExists("recipe"));
 
+    }
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
     }
     @Test
     public void getNewRecipeFormTest() throws Exception{

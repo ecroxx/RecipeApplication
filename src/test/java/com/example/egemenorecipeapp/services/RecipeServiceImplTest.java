@@ -1,7 +1,9 @@
 package com.example.egemenorecipeapp.services;
 
+import com.example.egemenorecipeapp.commands.RecipeCommand;
 import com.example.egemenorecipeapp.converters.RecipeCommandToRecipe;
 import com.example.egemenorecipeapp.converters.RecipeToRecipeCommand;
+import com.example.egemenorecipeapp.exceptions.NotFoundException;
 import com.example.egemenorecipeapp.model.Recipe;
 import com.example.egemenorecipeapp.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -62,22 +64,55 @@ public class RecipeServiceImplTest {
 
 
     @Test
-    public void findByIdTest() throws Exception {
-        Recipe recipe=new Recipe();
+    public void getRecipeByIdTest() throws Exception {
+        Recipe recipe = new Recipe();
         recipe.setId(1L);
-        Optional<Recipe> optionalRecipe=Optional.of(recipe);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe);
-        Recipe recipe1=recipeService.findById(1L);
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
 
-        assertNotNull(recipe1);
+        Recipe recipeReturned = recipeService.findById(1L);
 
-        verify(recipeRepository,times(1)).findById(anyLong());
-        verify(recipeRepository,never()).findAll();
+        assertNotNull("Null recipe returned", recipeReturned);
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, never()).findAll();
+    }
+
+    @Test(expected =NotFoundException.class )
+    public void getRecipeByIdTestNotFound() throws Exception {
+
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.findById(1L);
+
+        //should go boom
     }
 
     @Test
-    public void deleteById() throws Exception{
+    public void getRecipeCommandByIdTest() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+
+        RecipeCommand commandById = recipeService.findCommandById(1L);
+
+        assertNotNull("Null recipe returned", commandById);
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, never()).findAll();
+    }
+
+
+    @Test
+    public void deleteByIdTest() throws Exception{
         //given
         Long deleteId=Long.valueOf(1L);
 

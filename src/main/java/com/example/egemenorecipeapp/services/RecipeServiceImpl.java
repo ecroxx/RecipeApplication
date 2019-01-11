@@ -3,6 +3,7 @@ package com.example.egemenorecipeapp.services;
 import com.example.egemenorecipeapp.commands.RecipeCommand;
 import com.example.egemenorecipeapp.converters.RecipeCommandToRecipe;
 import com.example.egemenorecipeapp.converters.RecipeToRecipeCommand;
+import com.example.egemenorecipeapp.exceptions.NotFoundException;
 import com.example.egemenorecipeapp.model.Recipe;
 import com.example.egemenorecipeapp.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findById(Long id){
         Optional<Recipe> optionalRecipe= recipeRepository.findById(id);
         if(!optionalRecipe.isPresent()){
-            throw new RuntimeException("Not Available");
+            throw new NotFoundException("Recipe Not Found");
         }
         return optionalRecipe.get();
     }
