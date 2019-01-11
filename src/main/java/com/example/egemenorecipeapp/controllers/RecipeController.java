@@ -1,11 +1,14 @@
 package com.example.egemenorecipeapp.controllers;
 
 import com.example.egemenorecipeapp.commands.RecipeCommand;
+import com.example.egemenorecipeapp.exceptions.NotFoundException;
 import com.example.egemenorecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller
@@ -54,4 +57,13 @@ public class RecipeController {
         RecipeCommand savedCommand=recipeService.saveRecipeCommand(recipeCommand);
         return "redirect:/recipe/"+savedCommand.getId()+"/show";
     }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("404error");
+        return modelAndView;
+    }
+
 }
