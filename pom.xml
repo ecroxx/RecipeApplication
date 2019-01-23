@@ -105,6 +105,7 @@
             </plugin>
 
             <plugin>
+
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -114,6 +115,7 @@
                     <fork>true</fork>
                     <executable>/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/bin/javac</executable>
                 </configuration>
+
             </plugin>
 
             <plugin>
