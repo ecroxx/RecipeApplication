@@ -59,6 +59,7 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -108,28 +109,21 @@
 
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.7.0</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                    <fork>true</fork>
-                    <executable>/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home/bin/javac</executable>
+                    <release>${java.version}</release>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>6.2</version>
+                    </dependency>
+                </dependencies>
 
             </plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <formats>
-                        <format>html</format>
-                        <format>xml</format>
-                    </formats>
-                    <check />
-                </configuration>
-            </plugin>
+
             <!--fix for issue with JDK 1.8 181 see: https://stackoverflow.com/questions/53010200/maven-surefire-could-not-find-forkedbooter-class-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -140,6 +134,13 @@
                         --illegal-access=permit
                     </argLine>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>6.2</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
