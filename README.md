@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/ecroxx/RecipeApplication.svg?style=svg)](https://circleci.com/gh/ecroxx/RecipeApplication)
+
 # RecipeApplication
 Recipe Application which aims to produce recipe for businesses
 
